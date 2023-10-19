@@ -3,6 +3,7 @@ package pl.edu.agh.iisg.to.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -25,20 +26,28 @@ public class Student {
     }
 
     public static Optional<Student> create(final String firstName, final String lastName, final int indexNumber) {
-        // TODO
-        String sql = "";
+        String sql = "INSERT INTO student (first_name, last_name, index_number) VALUES (?, ?, ?);";
 
-        // TODO
         // it is important to maintain the correct order of the variables
-        Object[] args = { };
+        Object[] args = {
+                firstName,
+                lastName,
+                indexNumber
+        };
 
-
+        try {
+            int id = QueryExecutor.createAndObtainId(sql, args);
+            return Student.findById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return Optional.empty();
+
     }
 
     public static Optional<Student> findByIndexNumber(final int indexNumber) {
-        // TODO
-        return Optional.empty();
+        String sql = "SELECT * FROM student WHERE index_number = (?);";
+        return find(indexNumber, sql);
     }
 
     public static Optional<Student> findById(final int id) {
@@ -66,7 +75,36 @@ public class Student {
     }
 
     public Map<Course, Float> createReport() {
-        // TODO additional task
+        String sql = "SELECT course.id as course_id, name as course_name, grade FROM grade JOIN course on course_id = course.id WHERE student_id = ?";
+        Object[] args = {
+                this.id()
+        };
+
+        try (ResultSet rs = QueryExecutor.read(sql, args)) {
+            Map<Course, Float> map = new HashMap<>();
+            float sum = 0f;
+            int noGrades = 0;
+            Course oldCourse = new Course(-1, "");
+            while (rs.next()) {
+                Course course = new Course(rs.getInt("course_id"), rs.getString("course_name"));
+                float grade = rs.getFloat("grade");
+                if(oldCourse.id() == -1) oldCourse = new Course(rs.getInt("course_id"), rs.getString("course_name"));
+                if (course.id() == oldCourse.id()) {
+                    sum += grade;
+                    noGrades++;
+                }
+                else {
+                    map.put(oldCourse, sum/noGrades);
+                    sum = 0 + grade;
+                    noGrades = 1;
+                }
+                oldCourse = new Course(rs.getInt("course_id"), rs.getString("course_name"));
+            }
+            map.put(oldCourse, sum/noGrades);
+            return map;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return Collections.emptyMap();
     }
 

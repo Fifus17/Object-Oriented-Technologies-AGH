@@ -65,24 +65,46 @@ public class Course {
     }
 
     public boolean enrollStudent(final Student student) {
-        String enrollStudentSql = "";
-        Object[] args = {
 
+        String checkSql = "SELECT * FROM student_course WHERE student_id = (?) AND course_id = (?);";
+        String enrollStudentSql = "INSERT INTO student_course (student_id, course_id) VALUES (?, ?) ;";
+        Object[] args = {
+                student.id(),
+                this.id
         };
 
-        //TODO
+        try (ResultSet rs = QueryExecutor.read(checkSql, args)) {
+            if (rs.next()) {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        try {
+            QueryExecutor.create(enrollStudentSql, args);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
     public List<Student> studentList() {
-        String findStudentListSql = "";
+        String findStudentListSql = "SELECT s.id, first_name, last_name, index_number FROM student AS s LEFT JOIN student_course AS sc ON s.id = sc.student_id WHERE sc.course_id = (?)";
         Object[] args = {
-
+            this.id
         };
 
         List<Student> resultList = new LinkedList<>();
-        // TODO
+
+        try (ResultSet rs = QueryExecutor.read(findStudentListSql, args)) {
+            while (rs.next()) {
+                resultList.add(new Student(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getInt("Index_number")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return resultList;
     }
