@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="pl.edu.agh.school.SubjectTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-10-12T07:05:46" hostname="Filips-MacBook-Pro.local" time="0.026">
+  <properties/>
+  <testcase name="testTeacher()" classname="pl.edu.agh.school.SubjectTest" time="0.016"/>
+  <testcase name="testAddMark()" classname="pl.edu.agh.school.SubjectTest" time="0.0"/>
+  <testcase name="testAddTerm()" classname="pl.edu.agh.school.SubjectTest" time="0.007"/>
+  <testcase name="testGetName()" classname="pl.edu.agh.school.SubjectTest" time="0.001"/>
+  <testcase name="testAddLesson()" classname="pl.edu.agh.school.SubjectTest" time="0.0"/>
+  <testcase name="testAddSemesterMark()" classname="pl.edu.agh.school.SubjectTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

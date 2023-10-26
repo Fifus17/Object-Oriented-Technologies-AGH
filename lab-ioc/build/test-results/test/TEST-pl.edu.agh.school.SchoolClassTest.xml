@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="pl.edu.agh.school.SchoolClassTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-10-12T07:05:46" hostname="Filips-MacBook-Pro.local" time="0.01">
+  <properties/>
+  <testcase name="testMeetSearchCriteria()" classname="pl.edu.agh.school.SchoolClassTest" time="0.004"/>
+  <testcase name="testMeetSearchCriteriaDoesNotMeet()" classname="pl.edu.agh.school.SchoolClassTest" time="0.0"/>
+  <testcase name="testNameAndProfile()" classname="pl.edu.agh.school.SchoolClassTest" time="0.001"/>
+  <testcase name="testAddStudent()" classname="pl.edu.agh.school.SchoolClassTest" time="0.001"/>
+  <testcase name="testAddSubject()" classname="pl.edu.agh.school.SchoolClassTest" time="0.0"/>
+  <testcase name="testSchedule()" classname="pl.edu.agh.school.SchoolClassTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
